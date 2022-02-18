@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#" layout:decorator="layout">
+
+<head>
+    <meta charset="UTF-8" />
+
+    <title>Insert title here</title>
+
+    <link rel="stylesheet" th:href="@{/assets/css/layout.css}" />
+
+</head>
+
+<header>
+    <div class="topnav">
+        <table>
+            <th>
+                <a href="../../../"> <img class="logo-img" alt="logo"
+                        src="../static/assets/images/icon/logo.svg"
+                        th:src="@{/assets/images/icon/logo.svg}" /></a>
+            </th>
+            <a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+            <th>
+                <a href="index.html" onClick="Javascript:history.back();return(false);" class="back_btn">⯇</a>
+            </th>
+        </table>
+    </div>
+</header>
+
+<body>
+
+    <div layout:fragment="content" class="contentPosition">
+        <header class="cd-header-main-home"
+            style="background: url(../assets/img-bg-users.svg) no-repeat 0 0; background-position: center center !important">
+        </header>
+
+        <main class="cd-main-content-home" style="padding: 15px 15px 15px 15px !important">
+            <!-- <h1 style="font-weight:bold">User List</h1> -->
+            <!-- <div class="container"> -->
+            <fieldset class="edit">
+                <legend>Info</legend>
+                <div>
+                    <div>
+                        <div>
+                            <table style="border-spacing: 30px 10px;text-align: left;">
+                                <thead>
+                                    <tr>
+
+                                        <th style="color:#ffffff !important"></th>
+                                        <th>Info</th>
+                                    </tr>
+                                    <tr>
+                                        <td th:utext="${info.get(0)}"></td>
+                                        <td th:utext="${info.get(1)}"></td>
+
+
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </main>
+    </div>
+
+</body>
+
+</html>

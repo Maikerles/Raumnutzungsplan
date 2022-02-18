@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#"
+	xmlns:sec="http://www.springframework.org/security/spring-security.xsd"
+	layout:decorator="layout">
+
+<head>
+
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu</title>
+<meta name="description"
+	content="A sidebar menu as seen on the Google Nexus 7 website" />
+<meta name="keywords"
+	content="google nexus 7 menu, css transitions, sidebar, side menu, slide out menu" />
+<meta name="author" content="Codrops" />
+
+<link rel="stylesheet" th:href="@{/assets/css/layout.css}" />
+<link rel="stylesheet" href="../static/assets/css/layout.css" />
+       
+
+<title>SAE - Home</title>
+</head>
+<header>
+
+
+	<div class="topnav">
+
+		<a href="../"> <img class="logo-img" alt="logo"
+			src="../static/assets/images/icon/logo.svg"
+			th:src="@{assets/images/icon/logo.svg}" /></a>
+
+		<a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+	</div>
+
+	<div>
+
+		<nav id="mobile" sec:authorize="hasRole('ROLE_ADMIN')">
+			<div id="menu">Admin</div>
+
+			<ul>
+
+				<li class="has-children users" sec:authorize="hasRole('ROLE_ADMIN')">Accounts
+					<ul>
+						<li
+							th:class="${#httpServletRequest.requestURI=='/account/list'}? active"><a
+							th:href="@{/account/list}" href="account/list"
+							sec:authorize="hasRole('ROLE_ADMIN')">Alle Accounts</a></li>
+						<li
+							th:class="${#httpServletRequest.requestURI=='/account/register'}? active"><a
+							th:href="@{/account/register}" href="account/register"
+							sec:authorize="hasRole('ROLE_ADMIN')">Account hinzufügen</a></li>
+					</ul>
+				<li class="has-children bookmarks"
+					sec:authorize="hasRole('ROLE_ADMIN')">Raum
+					<ul>
+						<li sec:authorize="hasRole('ROLE_ADMIN')"
+							th:class="${#httpServletRequest.requestURI=='/unit/list'}? active"><a
+							th:href="@{/unit/list}" href="unit/list">Alle Räume</a></li>
+						<li sec:authorize="hasRole('ROLE_ADMIN')"
+							th:class="${#httpServletRequest.requestURI=='/unit/add'}? active"><a
+							th:href="@{/unit/add}" href="unit/add">Räume hinzufügen</a></li>
+					</ul>
+				<li class="has-children bookmarks"
+					sec:authorize="hasRole('ROLE_ADMIN')">Arbeitsplatz
+					<ul>
+						<li sec:authorize="hasRole('ROLE_ADMIN')"
+							th:class="${#httpServletRequest.requestURI=='/room/list'}? active"><a
+							th:href="@{/room/list}" href="room/list">Alle Arbeitsplätze</a></li>
+						<li sec:authorize="hasRole('ROLE_ADMIN')"
+							th:class="${#httpServletRequest.requestURI=='/room/add'}? active"><a
+							th:href="@{/room/add}" href="room/add">Arbeitsplatz hinzufügen</a></li>
+						<li class="bookmarks"
+					th:classappend="${#httpServletRequest.requestURI=='/event/list/all/'}? active"
+					sec:authorize="hasRole('ROLE_ADMIN')"><a
+					th:href="@{/event/list/all/}" href="/event/list/all/">Alle
+						Reservierungen</a></li>
+					</ul>
+			</ul>
+
+		</nav>
+
+		<nav id="mobile">
+			<div th:utext="'Willkommen, ' + ${user.getUserName()}" id="menu">WILLKOMMEN</div>
+			<ul id="user">               
+				<li class="overview"
+					th:classappend="${#httpServletRequest.requestURI=='/'}? active">
+					<a th:href="@{/account/edit/0}" href="logout">Profil bearbeiten</a>
+				</li>
+				<li class="bookmarks"
+					th:classappend="${#httpServletRequest.requestURI=='/book/unit/'}? active">
+					<a th:href="@{/book/unit/}" href="/book/unit/">Buchen</a>
+				</li>
+				<li class="bookmarks"
+					th:classappend="${#httpServletRequest.requestURI=='/event/list/'}? active">
+					<a th:href="@{/event/list/}" href="/event/list/"> Meine
+						Reservierungen</a>
+				</li>
+			</ul>
+		</nav>
+
+	</div>
+</header>
+<body>
+
+	<div style="margin: auto; width: 60%">
+		<main>
+		<h1>FDS - Freelancer Desksharing</h1>
+		Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+		commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus
+		et magnis dis parturient montes, nascetur ridiculus mus. Donec quam
+		felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+		consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
+		nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a,
+		venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+		Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean
+		vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat
+		vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra
+		quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius
+		laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
+		augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam
+		rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam
+		semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc,
+		blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio
+		et ante tincidunt tempus. Donec vitae sapien ut libero venenatis
+		faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus
+		tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales
+		sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit
+		cursus nunc, </main>
+	</div>
+
+</body>
+
+
+
+</html>
+

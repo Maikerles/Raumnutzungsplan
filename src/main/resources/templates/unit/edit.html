@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#"
+	layout:decorator="layout">
+
+<head>
+<link rel="shortcut icon" type="image/png"
+	href="assets/images/icon/favicon.ico">
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/themify-icons.css">
+<link rel="stylesheet" href="assets/css/metisMenu.css">
+<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="assets/css/slicknav.min.css">
+<!-- amchart css -->
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
+<!-- others css -->
+<link rel="stylesheet" href="assets/css/typography.css">
+<link rel="stylesheet" href="assets/css/default-css.css">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+<link rel="stylesheet" th:href="@{/assets/css/layout.css}" />
+<meta charset="UTF-8" />
+<!-- modernizr css -->
+<script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+<title>SAE - Einheitsinformationen bearbeiten</title>
+</head>
+<header>
+	<div class="topnav">
+		<table>
+			<th><a href="../../../"> <img class="logo-img" alt="logo"
+					src="../static/assets/images/icon/logo.svg"
+					th:src="@{/assets/images/icon/logo.svg}" /></a>
+			</th>
+			<a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+			<th><a href="index.html"
+				onClick="Javascript:history.back();return(false);" class="back_btn">⯇</a>
+			</th>
+		</table>
+	</div>
+</header>
+
+<body>
+	<div layout:fragment="content" class="contentPosition">
+
+		<div class="cd-tabs"
+			style="overflow: hidden !important; height: 1.3% !important;">
+
+			<form class="cd-form floating-labels" th:action="@{/unit/edit}"
+				th:object="${unit}" method="post">
+
+				<fieldset class="edit">
+					<legend>Rauminformationen bearbeiten</legend>
+
+					<table style="text-align: left">
+						<tr>
+							<th><label class="cd-label" for="cd-name">Raumnummer</label>
+
+							</th>
+							<th><input class="user" type="text" name="cd-name"
+								id="cd-name" th:field="*{name}" /><span
+								title="Raumnummer eingeben z.B. 5.001. Max. 10 Zeichen."
+								style="border-bottom: 1px dotted"> <img class="info-img"
+									alt="logo" src="../static/assets/images/icon/info.png"
+									th:src="@{/assets/images/icon/info.png}" /></span></th>
+						</tr>
+						<p></p>
+						<tr>
+							<th><label class="cd-label" for="cd-name">Bemerkung</label>
+							</th>
+							<th><input class="user" type="text" name="cd-name"
+								id="cd-name" th:field="*{bemerkung}" /><span
+								title="Bemerkung zum Raum eingeben. z.B. FDS-Raum. Max. 50 Zeichen"
+								style="border-bottom: 1px dotted"> <img class="info-img"
+									alt="logo" src="../static/assets/images/icon/info.png"
+									th:src="@{/assets/images/icon/info.png}" /></span></th>
+						</tr>
+					</table>
+
+
+					<input type="hidden" th:field="*{id}" />
+
+					<div>
+						<input class="btn_general" type="submit" value="Speichern" />
+					</div>
+
+				</fieldset>
+
+				<div class="success-message-ed"
+					th:if="${#httpServletRequest.getParameter('updated')}">
+					<p>Ihre Änderungen wurden gespeichert</p>
+				</div>
+
+				<div class="error-message-ed"
+					th:if="${#httpServletRequest.getParameter('error')}">
+					<p>Bereits verwendete Raumnummer, Bitte geben Sie einen andere
+						Raumnummer ein</p>
+				</div>
+
+				<div class="error-message-ed">
+					<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
+						error</p>
+					<p th:if="${#fields.hasErrors('bemerkung')}"
+						th:errors="*{bemerkung}">Bemerkung error/p>
+				</div>
+
+			</form>
+
+
+		</div>
+		<!-- cd-tabs -->
+
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#" xmlns:sec="http://www.springframework.org/security/tags"
+    layout:decorator="layout">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+<head>
+
+    <link rel="stylesheet" th:href="@{/assets/css/layout.css}" />
+    <link rel="stylesheet" href="../../static/assets/css/layout.css" />
+    <meta charset="UTF-8" />
+    <title>SAE - Account erstellen</title>
+</head>
+<header>
+    <div class="topnav">
+        <table>
+            <th>
+                <a href="../../../"> <img class="logo-img" alt="logo"
+                        src="../static/assets/images/icon/logo.svg"
+                        th:src="@{/assets/images/icon/logo.svg}" /></a>
+            </th>
+            <a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+            <th>
+                <a href="index.html" onClick="Javascript:history.back();return(false);" class="back_btn">⯇</a>
+            </th>
+        </table>
+    </div>
+</header>
+
+<body>
+
+    <div layout:fragment="content" class="contentPosition">
+
+        <!-- <h2 class="form-signin-heading">Edit <span th:text="${account.userName}"></span> account</h2> -->
+
+        <div>
+            <form th:action="@{/account/register}" th:object="${account}" action="/account/register" method="post">
+
+                <fieldset class="edit">
+                    <legend>Account hinzufügen</legend>
+                    <div>
+                        <a th:href="@{/account/list}" class="add">Alle Accounts</a>
+                    </div>
+
+                    <table style="text-align: left">
+                        <tr>
+                            <div class="icon">
+                                <th>
+                                    <label class="cd-label" for="cd-name">Name</label>
+                                </th>
+                                <th>
+                                    <input class="edit_input" type="text" name="lastName" required="required" th:field="*{lastName}"/>
+                                </th>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="icon">
+                                <th>
+                                    <label class="cd-label" for="cd-name">Vorname</label>
+                                </th>
+                                <th>
+                                    <input class="edit_input" type="text" name="firstName" required="required" th:field="*{firstName}" />
+                                </th>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="icon">
+                                <th>
+                                    <label class="cd-label" for="cd-email">E-mail</label>
+                                </th>
+                                <th>
+                                    <input class="edit_input" type="text" id="inputEmail" name="email"
+                                        required="required" th:field="*{email}" />
+                                </th>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="icon">
+                                <th>
+                                    <label class="cd-label" for="cd-name"> Benutzername</label>
+                                </th>
+                                <th>
+                                    <input class="edit_input" type="text" id="inputUsername" name="userName"
+                                        required="required" th:field="*{userName}"/>
+                                    <span title="Die   fängt mit einem A an." style="border-bottom: 1px dotted">      
+                                    <img class="info-img" alt="logo" src="../static/assets/images/icon/info.png" th:src="@{/assets/images/icon/info.png}" />
+                                </th>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="icon">
+                                <th>
+                                    <label class="cd-label" for="cd-name">Projekt</label>
+                                </th>
+                                <th>
+                                    <input class="edit_input" type="text" name="projectName" required="required" 
+                                    th:field="*{projectName}"/>
+                                    <span title="Das Projekt indem man gerade Arbeitet. Max. 100 Zeichen." style="border-bottom: 1px dotted">      
+                                    <img class="info-img" alt="logo" src="../static/assets/images/icon/info.png" th:src="@{/assets/images/icon/info.png}" />
+                                </th>
+                            </div>
+                        </tr>
+
+                        <tr>
+                            <div class="icon">
+                                <th>
+                                    <label class="cd-label" for="cd-name">Projektansprechpartner</label>
+                                </th>
+                                <th>
+                                    <input class="edit_input" type="text" name="projectSupervisor"
+                                        required="required" th:field="*{projectSupervisor}"/>
+                                    <span title="Der Projektansprechpartner für das ausgewählte Projekt eingeben. Max. 100 Zeichen" style="border-bottom: 1px dotted">      
+                                    <img class="info-img" alt="logo" src="../static/assets/images/icon/info.png" th:src="@{/assets/images/icon/info.png}" />
+                                </th>
+                            </div>
+                        </tr>
+
+                        <tr>
+
+                            <p class="fieldset">
+                                <th>
+                                    <label class="image-replace cd-password" for="signin-password">Passwort</label>
+                                </th>
+                                <th>
+                                    <input class="edit_input" id="inputPassword" name="password" type="password"
+                                        placeholder="Passwort" th:field="*{password}" />
+                                    <span title="Passwort eingeben mit mind. 8 Zeichen und Max. 100 Zeichen" style="border-bottom: 1px dotted">      
+                                    <img class="info-img" alt="logo" src="../static/assets/images/icon/info.png" th:src="@{/assets/images/icon/info.png}" />
+                                </th>
+                            </p>
+                        </tr>
+
+                        <tr>
+
+                            <p class="fieldset">
+                                <th>
+                                    <label>Rollen</label>
+                                </th>
+                                <th>
+                		  <p class="cd-select icon">
+                           	<select class="budget" id="inputRole" name="role">
+                                <option disabled="true" selected="selected">Wähle die Rolle</option>
+                                <option value="ROLE_ADMIN">Admin</option>
+                                <option value="ROLE_USER">User</option>
+                            </select>
+                       	 <span title="Eine Rolle auswählen für den Account" style="border-bottom: 1px dotted">      
+                                    <img class="info-img" alt="logo" src="../static/assets/images/icon/info.png" th:src="@{/assets/images/icon/info.png}" />
+                       	 </p>
+                               </th>
+                            </p>
+                        </tr>
+                    </table>
+                    <div>
+                        <input style="background-color: white; border: 1.5px solid black; border-radius: 5px"
+                            type="submit" value="Erstellen" />
+                    </div>
+
+
+                </fieldset>
+
+                <div class="success-message-ed" th:if="${#httpServletRequest.getParameter('updated')}">
+                <p>Der Account wurde hinzugefügt</p>
+            </div>
+
+            <div class="error-message-ed" th:if="${#fields.hasErrors()}">
+           		<p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Vorname error</p>
+           		<p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Nachname error</p>
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">E-mail error</p>
+                <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"> Benutzername error</p>
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Passwort error</p>
+                <p th:if="${#fields.hasErrors('projectName')}" th:errors="*{projectName}">Projektname error</p>
+				<p th:if="${#fields.hasErrors('projectSupervisor')}" th:errors="*{projectSupervisor}">Projektansprechpartner error</p>
+            </div>
+
+        </form>
+
+
+    </div> <!-- cd-tabs -->
+</div>
+
+</body>
+</html>

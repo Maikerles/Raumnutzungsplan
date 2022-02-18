@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#" layout:decorator="layout">
+	<head>
+	
+    <link rel="stylesheet" th:href="@{/assets/css/layout.css}" />
+	
+		<meta charset="UTF-8" />
+   
+		<title>SAE - Verfügbaren Tisch auswählen</title>
+
+		
+	
+	</head>
+	<header>
+		<div class="topnav">
+			<table>
+				<th>
+					<a href="../../../"> <img class="logo-img" alt="logo"
+											  src="../static/assets/images/icon/logo.svg"
+											  th:src="@{/assets/images/icon/logo.svg}"/></a>
+				</th>
+				<a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+				<th>
+					<a href="index.html" onClick="Javascript:history.back();return(false);" class="back_btn">⯇</a>
+				</th>
+			</table>
+		</div>
+	</header> 
+	<body>
+    	<div layout:fragment="content" class="contentPosition" style="padding-top: 45px !important">
+
+			<div style="transform: scale(1.4);margin-top: 5%;">
+
+				<fieldset class="edit">
+       					<legend class="table-title">Verfügbare Arbeitsplätze</legend>
+      				<div class="table-responsive">
+	     				<table id="datatable-book-table" style="text-align: left;border-spacing:25px 5px;">
+	        				<thead>
+	       						<tr>
+	       							<th style="color:#ffffff !important"></th>
+									   <th>Arbeitsplatz</th>
+									   <th>Position</th>
+
+									<tr th:each="r : ${tables}">
+										<td th:utext="${r.get(0)} "></td>
+										<td th:utext="${r.get(1)}"></td>
+										<td th:utext="${r.get(2)}"></td>
+
+
+								</tr>							
+
+	            					<th style="color:#ffffff !important"></th>
+	          					</tr>
+	       	 				</thead>
+      					</table>
+      				</div>
+				</fieldset>
+    			</div>
+        	</main>
+        	
+    	</div>
+	</body>
+</html>

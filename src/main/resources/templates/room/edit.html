@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#"
+	layout:decorator="layout">
+
+<head>
+<link rel="stylesheet" th:href="@{/assets/css/layout.css}" />
+<meta charset="UTF-8" />
+<title>SAE - Edit table information</title>
+</head>
+<header>
+	<div class="topnav">
+		<table>
+			<th><a href="../../../"> <img class="logo-img" alt="logo"
+					src="../static/assets/images/icon/logo.svg"
+					th:src="@{/assets/images/icon/logo.svg}" /></a>
+			</th>
+			<a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+			<th><a href="index.html"
+				onClick="Javascript:history.back();return(false);" class="back_btn">⯇</a>
+			</th>
+		</table>
+	</div>
+</header>
+<body>
+	<div layout:fragment="content" class="contentPosition">
+
+		<!-- <h2 class="form-signin-heading">Edit <span th:text="${account.userName}"></span> account</h2> -->
+
+		<div class="cd-tabs"
+			style="overflow: hidden !important; height: 1.3% !important;">
+
+			<form class="cd-form floating-labels" th:action="@{/room/edit}"
+				th:object="${table}" method="post">
+
+				<fieldset class="edit">
+					<legend>Arbeitsplatzinformation bearbeiten</legend>
+
+					<table style="text-align: left">
+						<tr>
+							<th><label class="cd-label" for="cd-name">Arbeitsplatz</label></th>
+							<th><input class="user" type="text" name="cd-name"
+								id="cd-name" th:field="*{name}" required="required" /><span
+								title="Arbeitsplatz name eingeben z.B. 5.001-001. Max. 10 Zeichen."
+								style="border-bottom: 1px dotted"> <img class="info-img"
+									alt="logo" src="../static/assets/images/icon/info.png"
+									th:src="@{/assets/images/icon/info.png}" /></span></th>
+						</tr>
+						<p></p>
+						<tr>
+							<th><label class="cd-label" for="cd-name">Position</label></th>
+							<th><select class="budget" th:field="*{position}">
+									<option disabled="true" selected="selected" value="${position}"></option>
+									<option value="Fenster-Rechts">Fenster-Rechts</option>
+									<option value="Fenster-Links">Fenster-Links</option>
+									<option value="Tuer-Links">Tür-Links</option>
+									<option value="Tuer-Links">Tür-Links</option>
+
+							</select> <span title="Position des Arbeitsplatzes auswählen."
+								style="border-bottom: 1px dotted"> <img class="info-img"
+									alt="logo" src="../static/assets/images/icon/info.png"
+									th:src="@{/assets/images/icon/info.png}" /></span></th>
+						</tr>
+						<p></p>
+						<tr>
+							<th><label class="cd-label" for="cd-name">Raum</label></th>
+							<th><select class="budget" th:field="*{unit.id}"
+								sec:authorize="hasRole('ROLE_ADMIN')">
+									<option th:each="u: ${unitList}" th:value="${u.id}"
+										th:text="${u.name}"></option>
+							</select> <span title="Raum auswählen indem der Arbeitsplatz stehen soll."
+								style="border-bottom: 1px dotted"> <img class="info-img"
+									alt="logo" src="../static/assets/images/icon/info.png"
+									th:src="@{/assets/images/icon/info.png}" /></span></th>
+						</tr>
+						<p></p>
+					</table>
+					<input type="hidden" th:field="*{id}" />
+
+					<div>
+						<input class="btn_general" type="submit" value="Speichern" />
+					</div>
+
+				</fieldset>
+
+				<div class="success-message-ed"
+					th:if="${#httpServletRequest.getParameter('updated')}">
+					<p>Sie haben die Tabelle erfolgreich aktualisiert</p>
+				</div>
+
+				<div class="error-message-ed"
+					th:if="${#httpServletRequest.getParameter('error')}">
+					<p>Error</p>
+				</div>
+
+				<div class="error-message-ed" th:if="${#fields.hasErrors()}">
+					<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
+						error</p>
+					<p th:if="${#fields.hasErrors('position')}" th:errors="*{position}">Positions
+						error</p>
+
+				</div>
+
+
+			</form>
+
+		</div>
+		<!-- cd-tabs -->
+
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#" layout:decorator="layout">
+<head>
+  
+    <link rel="stylesheet" th:href="@{/assets/css/layout.css}"/>
+    <script  type="text/javascript" th:src="@{/assets/js/layout.js}"> </script>
+	<meta charset="UTF-8" />
+ 
+    <title>SAE - Verfügbaren Tisch auswählen</title>
+
+  
+
+
+</head>
+<header>
+    <div class="topnav">
+        <table>
+            <th>
+                <a href="../../../"> <img class="logo-img" alt="logo"
+                                          src="../static/assets/images/icon/logo.svg"
+                                          th:src="@{/assets/images/icon/logo.svg}"/></a>
+            </th>
+            <a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+            <th>
+                <a href="index.html" onClick="Javascript:history.back();return(false);" class="back_btn">⯇</a>
+            </th>
+        </table>
+    </div>
+</header> 
+<body>
+<div layout:fragment="content" class="contentPosition" style="padding-top: 45px !important">
+	<div style="transform: scale(1.4);margin-top: 5%;">
+
+        <fieldset class="edit">
+                    <legend class="table-responsive">Verfügbare Räume</legend>
+                <div class="table-responsive">
+                    <table id="datatable-book-unit" style="text-align: left;border-spacing:25px 5px;">
+                   
+                         <th style="color:#ffffff !important"></th>
+                        <th>Raumnummer</th>
+                        <th>Bemerkung</th>
+                        <tr th:each="u : ${unitss}">
+                            <td th:utext="${u.get(0)}"></td>
+                            <td th:utext="${u.get(1)}"></td>
+                            <td th:utext="${u.get(2)}"></td>
+
+                        </tr>
+
+                        <thead>
+                        <tr>
+                            <th style="width=5% !important; color:#ffffff !important"></th>
+
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+        </fieldset>
+</div>
+
+</div>
+</body>
+</html>

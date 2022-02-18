@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#" layout:decorator="layout">
+
+<head>
+    <link rel="stylesheet" th:href="@{/assets/css/layout.css}" />
+    <link rel="stylesheet" href="../../static/assets/css/layout.css" />
+    <meta charset="UTF-8" />
+    <!-- modernizr css -->
+    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <title>SAE - Edit Account Information</title>
+</head>
+<header>
+    <div class="topnav">
+        <table>
+            <th>
+                <a href="../../../"> <img class="logo-img" alt="logo"
+                        src="../static/assets/images/icon/logo.svg"
+                        th:src="@{/assets/images/icon/logo.svg}" /></a>
+            </th>
+            <a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+            <th>
+                <a href="index.html" onClick="Javascript:history.back(); return(false);" class="back_btn">⯇</a>
+            </th>
+        </table>
+    </div>
+</header>
+
+<body>
+    <div layout:fragment="content" class="contentPosition">
+
+        <!-- <h2 class="form-signin-heading">Edit <span th:text="${account.userName}"></span> account</h2> -->
+
+        <div style="transform: scale(1.4);margin-top: 7%;">
+            <form class="cd-form floating-labels" th:action="@{/account/edit}" th:object="${account}" method="post">
+
+                <fieldset class="edit">
+                    <legend>Bearbeiten <span th:text="${account.userName}"></span> Account Information</legend>
+                    <table style="text-align: left">
+						
+						<tr>
+                            <div class="icon">
+                                <th>
+                                    <label class="cd-label" for="cd-name">Vorname</label>
+                                </th>
+                                <th>
+                                    <input class="edit_input" type="text" name="firstName" required="required"
+                                        th:field="*{firstName}" />
+                                </th>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="icon">
+                                <th>
+                                    <label class="cd-label" for="cd-name">Name</label>
+                                </th>
+                                <th>
+                                    <input class="edit_input" type="text" name="lastName" required="required"
+                                        th:field="*{lastName}" />
+                                </th>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="icon">
+                                <th>
+                                    <label class="cd-label" for="cd-email">E-mail</label>
+                                </th>
+                                <th>
+                                    <input class="edit_input" type="email" id="inputEmail" name="email"
+                                        th:field="*{email}" required="required" />
+                                </th>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="icon">
+                                <th>
+                                    <label class="cd-label" for="cd-userName"> Benutzername</label>
+                                </th>
+                                <th>
+                                    <input class="edit_input" type="text" id="inputUserName" name="userName"
+                                        th:field="*{userName}" required="required" readonly disabled="disabled"/>
+                                </th>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="icon">
+                                <th>
+                                    <label class="cd-label" for="cd-name">Projekt</label>
+                                </th>
+                                <th>
+                                    <input class="edit_input" type="text" name="projectName" required="required"
+                                        th:field="*{projectName}" />
+                                </th>
+                            </div>
+                        </tr>
+
+                        <tr>
+                            <div class="icon">
+                                <th>
+                                    <label class="cd-label" for="cd-name">Projektansprechpartner</label>
+                                </th>
+                                <th>
+                                    <input class="edit_input" type="text" name="projectSupervisor" required="required"
+                                        th:field="*{projectSupervisor}" />
+                                </th>
+                            </div>
+                        </tr>
+                        <p class="fieldset">
+                            <th>
+                                <label class="image-replace cd-password" for="signin-password">Passwort</label>
+                            </th>
+                            <th>
+                                <input class="edit_input" id="inputPassword" name="password" type="password"
+                                    placeholder="Passwort" th:field="*{password}" />
+                            </th>
+                        </p>
+                        </tr>
+                    </table>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <h4 sec:authorize="hasRole('ROLE_ADMIN')">Rolle</h4>
+
+                        <p class="cd-select icon">
+                            <select class="budget" th:field="*{role}" sec:authorize="hasRole('ROLE_ADMIN')">
+                                <option disabled="true" selected="selected" value="${account.role}"></option>
+                                <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                                <option value="ROLE_USER">ROLE_USER</option>
+                            </select>
+                        </p>
+                    </div>
+
+
+                    <input sec:authorize="hasRole('ROLE_ADMIN')" type="hidden"  />
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div style="padding-top: 10px">
+                        <input class="btn_general" type="submit" value="Speichern" />
+                    </div>
+
+
+                </fieldset>
+
+                <div class="success-message-ed" th:if="${#httpServletRequest.getParameter('updated')}">
+                <p>Änderung gespeichert</p>
+            </div>
+
+            <div class="error-message-ed">
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Bitte füge eine gültige E-mail-Adresse
+                    hinzu</p>
+            </div>
+
+        </form>
+
+    </div> <!-- cd-tabs -->
+
+</div>
+
+</body>
+</html>

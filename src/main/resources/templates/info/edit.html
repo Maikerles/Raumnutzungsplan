@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#" layout:decorator="layout">
+    <meta charset="UTF-8"/>
+
+<title>Insert title here</title>
+    <link rel="stylesheet" th:href="@{/assets/css/layout.css}" />
+
+</head>
+
+<header>
+    <div class="topnav">
+        <table>
+            <th>
+                <a href="../../../"> <img class="logo-img" alt="logo"
+                                          src="../static/assets/images/icon/logo.svg"
+                                          th:src="@{/assets/images/icon/logo.svg}"/></a>
+            </th>
+            <a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+            <th>
+                <a href="index.html" onClick="Javascript:history.back();return(false);" class="back_btn">⯇</a>
+            </th>
+        </table>
+    </div>
+</header>
+<body>
+
+<div layout:fragment="content" class="contentPosition">
+
+    <div class="cd-tabs" style="overflow:hidden !important; height:1.3% !important;">
+
+        <form class="cd-form floating-labels" th:action="@{/info/edit}" th:object="${infoVersion}" method="post">
+
+            <fieldset class="edit">
+                <legend>Info bearbeiten</legend>
+				<p>  </p>
+                <p>  </p>
+                <p>  </p>
+                <div class="icon">
+                    <label class="cd-label" for="cd-name">Info</label> 
+                    <input class="info" type="text" name="cd-name" id="cd-name" th:field="*{info}"/>
+                    
+                           <span title="Information für die Startseite. Max. 50 Zeichen." style="border-bottom: 1px dotted">      
+                           <img class="info-img" alt="logo" src="../static/assets/images/icon/info.png" th:src="@{/assets/images/icon/info.png}" /></span>
+                </div>
+		
+                <input type="hidden" th:field="*{id}"/>
+
+                <div>
+                <p>  </p>
+                <p>  </p>
+                <p>  </p>
+                    <input class="btn_general" type="submit" value="Speichern"/>
+                </div>
+
+            </fieldset>		
+			
+            <div class="success-message-ed" th:if="${#httpServletRequest.getParameter('updated')}">
+                <p>Ihre Änderungen wurden gespeichert</p>
+            </div>
+
+            <div class="error-message-ed" th:if="${#httpServletRequest.getParameter('error')}">
+                <p>Bereits verwendeter Name, Bitte geben Sie einen anderen Namen ein</p>
+            </div>
+
+            <div class="error-message-ed">
+                <p th:if="${#fields.hasErrors('info')}" th:errors="*{info}">Bitte geben Sie eine Info ein</p>
+            </div> 
+
+        </form>
+
+
+    </div>
+    <!-- cd-tabs -->
+
+</div>
+
+
+
+</body>
+</html>

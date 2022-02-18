@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#" layout:decorator="layout">
+<head>
+    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/themify-icons.css">
+    <link rel="stylesheet" href="../assets/css/metisMenu.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/slicknav.min.css">
+    <!-- amchart css -->
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all"/>
+    <!-- others css -->
+    <link rel="stylesheet" href="../assets/css/typography.css">
+    <link rel="stylesheet" href="../assets/css/default-css.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" th:href="@{/assets/css/layout.css}"/>
+    <link rel="stylesheet" href="../../static/assets/css/layout.css"/>
+	<meta charset="UTF-8" />
+    <!-- modernizr css -->
+    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <title>SAE - Verfügbaren Tisch auswählen</title>
+
+    <!-- MATERIALIZE SCRIPT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+
+    <!-- MATERIALIZE CUSTOM STYLE -->
+    <link rel="stylesheet" th:href="@{/css/materialize.min.css}"/>
+
+
+</head>
+<header>
+    <div class="topnav">
+        <table>
+            <th>
+                <a href="../../../"> <img class="logo-img" alt="logo"
+                                          src="../static/assets/images/icon/logo.svg"
+                                          th:src="@{/assets/images/icon/logo.svg}"/></a>
+            </th>
+            <a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+            <th>
+                <a href="index.html" onClick="Javascript:history.back();return(false);" class="back_btn">⯇</a>
+            </th>
+        </table>
+    </div>
+</header>
+<body>
+<div layout:fragment="content" class="contentPosition" style="padding-top: 45px !important">
+	<div style="transform: scale(1.4);margin-top: 5%;">
+
+        <fieldset class="edit">
+                    <legend class="table-responsive">Verfügbare Tische</legend>
+                <div class="table-responsive">
+                    <table id="datatable-book-unit">
+                        <th>Name</th>
+                        <tr th:each="u : ${unitss}">
+                            <td th:utext="${u.get(0)}"></td>
+                            <td th:utext="${u.get(1)}"></td>
+
+                        </tr>
+
+                        <thead>
+                        <tr>
+                            <th style="width=5% !important; color:#ffffff !important"></th>
+
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+        </fieldset>
+</div>
+
+</div>
+</body>
+</html>

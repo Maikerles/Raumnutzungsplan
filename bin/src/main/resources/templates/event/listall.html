@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#" layout:decorator="layout">
+
+<head>
+
+    <title>SAE - Reservierungen</title>
+
+    <!-- MATERIALIZE SCRIPT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+
+    <!-- MATERIALIZE CUSTOM STYLE -->
+    <link rel="stylesheet" th:href="@{/assets/css/layout.css}"/>
+    <meta charset="UTF-8"/>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            $('#datatable-events').dataTable({
+                "data": /*[[${events}]]*/,
+                "aoColumnDefs": [
+                    {"sWidth": "7%", "aTargets": [0]} // 1 would be the 2nd column
+                ],
+                "oLanguage": {
+                    "sStripClasses": "",
+                    "sSearch": "",
+                    "sSearchPlaceholder": "Enter Keywords Here",
+                    "sInfo": "_START_ -_END_ of _TOTAL_",
+                    "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+                        '<option value="10">10</option>' +
+                        '<option value="20">20</option>' +
+                        '<option value="30">30</option>' +
+                        '<option value="40">40</option>' +
+                        '<option value="50">50</option>' +
+                        '<option value="-1">All</option>' +
+                        '</select></div>'
+                },
+                bAutoWidth: false
+            });
+        });
+        /*]]>*/
+    </script>
+</head>
+<header>
+    <div class="topnav">
+        <table>
+            <th>
+                <a href="../../../"> <img class="logo-img" alt="logo"
+                                          src="../static/assets/images/icon/logo.svg"
+                                          th:src="@{/assets/images/icon/logo.svg}"/></a>
+            </th>
+            <a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+            <th>
+                <a href="index.html" onClick="Javascript:history.back();return(false);" class="back_btn">⯇</a>
+            </th>
+        </table>
+    </div>
+</header>
+<body>
+<div layout:fragment="content" class="contentPosotion" style="padding-top: 45px !important">
+
+    <main class="cd-main-content-home" style="padding: 15px 15px 15px 15px !important">
+        <fieldset class="edit">
+            <legend>Alle Reservierungen</legend>
+            <div class="card material-table">
+                <div class="table-responsive">
+                    <table id="datatable-events">
+                        <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Raum</th>
+                            <th>Titel</th>
+                            <th>Start</th>
+                            <th>Ende</th>
+                            <th style="width=5% !important; color:#ffffff !important"></th>
+
+                        <tr th:each="b : ${events}">
+
+                            <td th:text="${b.get(0)}"></td>
+                            <td th:text="${b.get(1)}"></td>
+                            <td th:text="${b.get(2)}"></td>
+                            <td th:text="${b.get(3)}"></td>
+                            <td th:text="${b.get(4)}"></td>
+
+
+                        </tr>
+
+                        </tr>
+
+
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+    </main>
+
+</div>
+</body>
+</html>

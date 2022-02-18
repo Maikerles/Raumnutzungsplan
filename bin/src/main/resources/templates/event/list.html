@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#" layout:decorator="layout">
+
+<head>
+
+    <title>SAE - Reservierung</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/assets/css/layout.css}"/>
+    <meta charset="UTF-8"/>
+
+
+</head>
+<header>
+    <div class="topnav">
+        <table>
+            <th>
+                <a href="../../../"> <img class="logo-img" alt="logo"
+                                          src="../static/assets/images/icon/logo.svg"
+                                          th:src="@{/assets/images/icon/logo.svg}"/></a>
+            </th>
+            <a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+            <th>
+                <a href="index.html" onClick="Javascript:history.back();return(false);" class="back_btn">⯇</a>
+            </th>
+        </table>
+    </div>
+</header>
+
+<body>
+<div layout:fragment="content" class="contentPosition" style="padding-top: 45px !important">
+
+    <main class="cd-main-content-home" style="padding: 15px 15px 15px 15px !important">
+        <fieldset class="edit">
+            <legend>Meine Reservierungen</legend>
+            <div class="card material-table">
+                <div class="table-header">
+
+                    <div>
+                        <a th:href="@{/event/list/delete/all}" class="add">delete</a>
+
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="datatable-events">
+                        <thead>
+                        <tr>
+                            <th style="width=5% !important; color:#ffffff !important"></th>
+                            <th>Room</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th style="width=5% !important; color:#ffffff !important"></th>
+                        </tr>
+
+                        <tr th:each="e : ${events}">
+                            <td th:utext="${e.get(0)}"></td>
+                            <td th:utext="${e.get(1)}"></td>
+                            <td th:utext="${e.get(2)}"></td>
+                            <td th:utext="${e.get(3)}"></td>
+                            <td th:utext="${e.get(4)}"></td>
+                        </tr>
+
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+    </main>
+
+</div>
+</body>
+
+</html>

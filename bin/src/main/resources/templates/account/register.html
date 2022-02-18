@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#" xmlns:sec="http://www.springframework.org/security/tags"
+      layout:decorator="layout">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<head>
+
+    <link rel="stylesheet" th:href="@{/assets/css/layout.css}"/>
+    <link rel="stylesheet" href="../../static/assets/css/layout.css"/>
+    <meta charset="UTF-8"/>
+    <title>SAE - Account erstellen</title>
+</head>
+<header>
+    <div class="topnav">
+        <table>
+            <th>
+                <a href="../../../"> <img class="logo-img" alt="logo"
+                                          src="../static/assets/images/icon/logo.svg"
+                                          th:src="@{/assets/images/icon/logo.svg}"/></a>
+            </th>
+            <a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+            <th>
+                <a href="index.html" onClick="Javascript:history.back();return(false);" class="back_btn">⯇</a>
+            </th>
+        </table>
+    </div>
+</header>
+<body>
+<div layout:fragment="content" class="contentPosition">
+
+    <!-- <h2 class="form-signin-heading">Edit <span th:text="${account.userName}"></span> account</h2> -->
+
+    <div>
+        <form th:action="@{/account/register}" th:object="${account}" action="/account/register" method="post">
+
+            <fieldset class="edit">
+                <legend>Accounts Hinzufügen</legend>
+
+                <table style="text-align: left">
+                    <tr>
+                        <div class="icon">
+                            <th>
+                                <label class="cd-label" for="cd-email">E-mail</label>
+                            </th>
+                            <th>
+                                <input class="edit_input" type="text" id="inputEmail" name="email"
+                                       required="required"/>
+                            </th>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="icon">
+                            <th>
+                                <label class="cd-label" for="cd-name">Benutzername</label>
+                            </th>
+                            <th>
+                                <input class="edit_input" type="text" id="inputUsername" name="userName"
+                                       required="required"/>
+                            </th>
+                        </div>
+                    </tr>
+                    <tr>
+
+                        <p class="fieldset">
+                        <th>
+                            <label class="image-replace cd-password" for="signin-password">Passwort</label>
+                        </th>
+                        <th>
+                            <input class="edit_input" id="inputPassword" name="password"
+                                   type="password" placeholder="Password" th:field="*{password}"/>
+                        </th>
+                        </p>
+                    </tr>
+
+                </table>
+                <div>
+                    <h4>Rollen</h4>
+
+                    <p class="cd-select icon">
+                        <select class="budget" id="inputRole" name="role">
+                            <option disabled="true" selected="selected">Wähle die Rolle</option>
+                            <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                            <option value="ROLE_USER">ROLE_USER</option>
+                        </select>
+                    </p>
+                </div>
+
+
+                <div>
+                    <input style="background-color: white; border: 1.5px solid black; border-radius: 5px" type="submit"
+                           value="Erstellen"/>
+                </div>
+
+
+            </fieldset>
+
+            <div class="success-message-ed" th:if="${#httpServletRequest.getParameter('updated')}">
+                <p>Der Account wurde hinzugefügt</p>
+            </div>
+
+            <div class="error-message-ed" th:if="${#fields.hasErrors()}">
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">E-mail error</p>
+                <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Benutzername error</p>
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Passwort error</p>
+
+            </div>
+
+        </form>
+
+
+    </div> <!-- cd-tabs -->
+</div>
+
+</body>
+</html>

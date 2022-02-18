@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Poppins:100,300,400,500,600,700,800,900');
+
+@charset "UTF-8";
+* body {
+    font-family: Lato;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+}
+.home-bg{
+    background: url(../images/bg/home-bg_new.jpg) no-repeat;
+    position: relative;
+}
+
+.contentPosition {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: Lato;
+
+}
+.version_nr{
+    color: #fff;
+    font-size: 12px;
+    font-weight: lighter;
+    float: left;
+    margin-top: 12px;
+    text-transform: uppercase;
+}
+.logo-img {
+    width: 170px;
+    height: 30px;
+    margin: 10px;
+}
+.info-img{
+	width: 16px;
+    height: 16px;
+}
+.back_btn{
+    position: center;
+    color: #fff;
+    font-size: 25px;
+    float: left;
+    text-decoration: none;
+    border-style: solid;
+    border-radius: 10px;
+}
+
+.logoutBtn {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 900;
+    text-transform: uppercase;
+    float: right;
+    line-height: 24px;
+    margin-top: 12px;
+    margin-right: 12px;
+    text-decoration: none;
+}
+
+.edit {
+    border-color: #ea0a8e;
+    border-style: solid;
+    border-radius: 10px;
+    list-style: none;
+
+}
+
+.edit_input {
+    border: 1.5px solid black;
+    border-radius: 5px;
+    width: 300px
+}
+
+.btn_general {
+    background-color: white;
+    border: 1.5px solid black;
+    border-radius: 5px;
+}
+.add{
+    background-color: white;
+    border: transparent ;
+    color: dodgerblue;
+    text-decoration: none;
+
+}
+.add:hover{
+    opacity: 70%;
+}
+
+.tableresp {
+    width: 100%;
+    overflow: auto;
+}
+
+.topnav {
+    background-color: #ea0a8e;
+    overflow: hidden;
+
+}
+
+/* Style the links inside the navigation bar */
+
+
+
+
+
+header nav #menu {
+    padding: 1.17rem 5% 1.17rem 5%;
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    font-size: 23px;
+    color: White;
+    font-weight: 300;
+    background-color: #7a7a7a;
+}
+
+header nav#mobile ul {
+    margin: auto;
+    width: 50%;
+    font-size: 23px;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+
+}
+
+header nav#mobile > ul {
+    max-height: 800px;
+}
+
+header nav#mobile ul li {
+    text-align: left;
+    color: black;
+    text-decoration: none;
+    font-size: 23px;
+    margin: auto;
+    text-transform: none;
+    font-weight: bold;
+
+
+}
+
+header nav#mobile ul li a {
+    font-weight: normal;
+    display: inline-block;
+    padding: 15px 5% 15px 5%;
+    margin: auto;
+    width: 85%;
+    text-align: center;
+    font-size: 23px;
+    text-transform: none;
+    color: black;
+    text-decoration: none;
+    border-color: #ea0a8e;
+    border-style: solid;
+    background: rgba(255, 255, 255, 0.8);
+}
+header nav#mobile ul li p{
+    padding: 5px 5% 5px 5%;
+    margin: auto;
+    border: none
+}
+
+header nav#mobile ul li ul li a:hover {
+
+    background:  rgba(255, 255, 255, 1.0);
+
+}
+
+
+header nav#mobile ul li ul {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    margin: auto;
+}
+
+header nav#mobile ul li ul li {
+    display: block;
+    margin: auto;
+
+}
+
+header nav#mobile ul li ul li a {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+header nav#mobile ul li > ul {
+    max-height: 500px;
+}
+
+header nav ul#user li a:hover {
+
+    background:  rgba(255, 255, 255, 1.0);
+
+}
+header nav ul#user p {
+
+    padding: 5px 5% 5px 5%;
+    margin: auto;
+    border: none;
+}
+

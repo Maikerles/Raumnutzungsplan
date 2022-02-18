@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="#" layout:decorator="layout">
+
+<head>
+    <link rel="stylesheet" th:href="@{/assets/css/layout.css}"/>
+    <link rel="stylesheet" href="../../static/assets/css/layout.css"/>
+    <meta charset="UTF-8"/>
+    <title>SAE - List accounts</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/materialize.min.css}"/>
+
+</head>
+<header>
+    <div class="topnav">
+        <table>
+            <th>
+                <a href="../../../"> <img class="logo-img" alt="logo"
+                                          src="../static/assets/images/icon/logo.svg"
+                                          th:src="@{/assets/images/icon/logo.svg}"/></a>
+            </th>
+            <a th:href="@{/logout}" href="logout" class="logoutBtn">Logout</a>
+            <th>
+                <a href="index.html" onClick="Javascript:history.back();return(false);" class="back_btn">⯇</a>
+            </th>
+        </table>
+    </div>
+</header>
+
+<body>
+<div layout:fragment="content" class="contentPosition">
+    <header class="cd-header-main-home"
+            style="background: url(../assets/img-bg-users.svg) no-repeat 0 0; background-position: center center !important"></header>
+
+    <main class="cd-main-content-home" style="padding: 15px 15px 15px 15px !important">
+        <!-- <h1 style="font-weight:bold">User List</h1> -->
+        <!-- <div class="container"> -->
+        <fieldset class="edit">
+            <legend>Alle Accounts</legend>
+            <div class="card material-table">
+                <div class="table-header">
+                    <div>
+                            <a th:href="@{/account/register}" class="add">Person hinzufügen</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="datatable-users">
+                            <thead>
+                            <tr>
+
+                                <th style="color:#ffffff !important"></th>
+                                <th style="color:#ffffff !important"></th>
+                                <th>Benutzername</th>
+                                <th>Letzter Login</th>
+                                <th>Rolle</th>
+                                <th>Bookings</th>
+
+
+                            <tr th:each="a : ${accounts}">
+                                <td th:utext="${a.get(0)}"></td>
+                                <td th:text="${a.get(3)}"></td>
+                                <td th:text="${a.get(4)}"></td>
+                                <td th:text="${a.get(5)}"></td>
+                                <td th:text="${a.get(6)}"></td>
+                                <td th:text="${a.get(7)}"></td>
+
+
+                            </tr>
+
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </main>
+</div>
+</body>
+
+</html>

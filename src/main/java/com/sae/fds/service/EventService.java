@@ -1,0 +1,208 @@
+package com.sae.fds.service;
+
+import java.text.ParseException;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import com.sae.fds.repository.EventRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.sae.fds.domain.Table;
+import com.sae.fds.domain.Account;
+import com.sae.fds.domain.Event;
+
+/* Bearbeitung der Daten */
+@Service
+public class EventService {
+	@Autowired
+	private EventRepository eventRepository;
+
+	public Event findById(long id) {
+		return eventRepository.findById(id);
+	}
+
+	public List<Event> findByAccount(Account account) {
+		return eventRepository.findByAccount(account);
+	}
+
+	public List<Event> list() {
+		return eventRepository.findAll();
+	}
+
+	public List<Event> findByDatesBetween(String start, String end, String room) {
+		Date startDate = null;
+		Date endDate = null;
+		SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+
+		try {
+			startDate = inputDateFormat.parse(start);
+			endDate = inputDateFormat.parse(end);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		long r = Long.parseLong(room);
+		return eventRepository.findByDatesBetween(startDate, endDate, r);
+	}
+
+	public Event add(Event event) {
+		List<Event> events = eventRepository.findByDatesBetweenOr(event.getStart(), event.getEnd(),
+				event.getTable().getId());
+		if (events.size() == 0) {
+			Event created = eventRepository.save(event);
+			return created;
+		} else {
+			return null;
+		}
+	}
+
+	public Event update(Event event) {
+		List<Event> events = eventRepository.findByDatesBetweenOrAnd(event.getStart(), event.getEnd(),
+				event.getTable().getId(), event.getId());
+		if (events.size() == 0) {
+			return eventRepository.save(event);
+		} else {
+			return null;
+		}
+	}
+
+	public Boolean delete(Long id) {
+		this.eventRepository.deleteById(id);
+		return true;
+	}
+
+	public int countInRoom(Table table) {
+		return this.eventRepository.findByTable(table).size();
+	}
+
+	public List<Event> roomEventList(Table table) {
+		return this.eventRepository.findByTable(table);
+	}
+
+	public int countInAccount(Account account) {
+		return this.eventRepository.findByAccount(account).size();
+	}
+
+	public List<Event> accountEventList(Account account) {
+		return this.eventRepository.findByAccount(account);
+	}
+
+	public List<List<String>> listTable() {
+		List<Event> events = this.eventRepository.findAll();
+		List<List<String>> eventsList = new LinkedList<List<String>>();
+
+		Comparator<Event> comparator = new Comparator<Event>() {
+			@Override
+			public int compare(Event left, Event right) {
+				return (int) (left.getId() - right.getId());
+			}
+		};
+		Collections.sort(events, comparator);
+
+		for (Event event : events) {
+			List<String> eventData = new ArrayList<String>();
+
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+
+			var start = dateFormat.format(event.getStart());
+			var end = dateFormat.format(event.getEnd());
+			
+
+			// eventData.add("<a style=\"color: #f9b012\" href=\"/event/edit/" +
+			// event.getId() + "\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0
+			// 24 24\" width=\"24\" height=\"24\"><path d=\"M3 17.25V21h3.75L17.81
+			// 9.94l-3.75-3.75L3 17.25z\"></path><path d=\"M20.71 7.04c.39-.39.39-1.02
+			// 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75
+			// 1.83-1.83z\"></path></svg></a>");
+			eventData.add(
+					"<a onClick=\"return confirm('Soll der Datensatz wirklich gelöscht werden?');\"style=\"color: #f9b012\" href=\"/event/list/all/delete?id="
+							+ event.getId()
+							+ "\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12z\"></path><path d=\"M19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z\"></path></svg></a>");
+			eventData.add(event.getAccount().getUserName());
+			eventData.add(event.getTable().getUnit().getName());
+			eventData.add(event.getTable().getName());
+			eventData.add(event.getTable().getPosition());
+			eventData.add(start);
+			eventData.add(end);
+			eventData.add(event.getTable().getUnit().getBemerkung());
+
+			eventsList.add(eventData);
+		}
+		return eventsList;
+	}
+
+	public List<List<String>> listTable(Account account) {
+		List<Event> events = this.eventRepository.findByAccount(account);
+		List<List<String>> eventsList = new LinkedList<List<String>>();
+
+		Comparator<Event> comparator = new Comparator<Event>() {
+			@Override
+			public int compare(Event left, Event right) {
+				return (int) (left.getId() - right.getId());
+			}
+		};
+		Collections.sort(events, comparator);
+
+		for (Event event : events) {
+			List<String> eventData = new ArrayList<String>();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+
+			var start = dateFormat.format(event.getStart());
+			var end = dateFormat.format(event.getEnd());
+        
+		
+			eventData.add(
+					"<a onClick=\"return confirm('Soll der Datensatz wirklich gelöscht werden?');\" style=\"color: #f9b012\" href=\"/event/list/delete?id="
+							+ event.getId()
+							+ "\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"24\" height=\"24\"><path d=\"M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12z\"></path><path d=\"M19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z\"></path></svg></a>");
+			eventData.add(event.getAccount().getUserName());
+			eventData.add(event.getTable().getUnit().getName());
+			eventData.add(event.getTable().getName());
+			eventData.add(event.getTable().getPosition());
+			eventData.add(start);
+			eventData.add(end);
+			eventData.add(event.getTable().getUnit().getBemerkung());
+			
+			eventsList.add(eventData);
+		}
+		return eventsList;
+	}
+
+	public Map<String, Object> listExport(Account a) {
+		List<Event> events = new ArrayList<>();
+		if (a == null) {
+			events = eventRepository.findAll();
+		} else {
+			events = eventRepository.findByAccount(a);
+		}
+
+		Comparator<Event> comparator = new Comparator<Event>() {
+			@Override
+			public int compare(Event left, Event right) {
+				return (int) (left.getId() - right.getId());
+			}
+		};
+		Collections.sort(events, comparator);
+
+		Map<String, Object> linkedHashMap = new LinkedHashMap<String, Object>();
+		for (Event event : events) {
+			Map<String, Object> linkedHashMapMap = new LinkedHashMap<String, Object>();
+			linkedHashMapMap.put("id", event.getId());
+			linkedHashMapMap.put("table", event.getTable());
+			linkedHashMapMap.put("start", event.getStart());
+			linkedHashMapMap.put("end", event.getEnd());
+			linkedHashMapMap.put("account", event.getAccount().getUserName());
+			linkedHashMap.put("event " + String.valueOf(event.getId()), linkedHashMapMap);
+		}
+		return linkedHashMap;
+	}
+}
